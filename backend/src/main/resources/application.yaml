@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: riot-data-explorer
+  jpa:
+    properties:
+      hibernate:
+        globally_quoted_identifiers: true
+  mvc:
+    problemdetails:
+      enabled: true

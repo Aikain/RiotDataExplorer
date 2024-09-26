@@ -1,3 +1,9 @@
-const Page = () => <div>Hello World</div>;
+import Search from '@/components/search';
+
+const Page = () => (
+    <div>
+        <Search />
+    </div>
+);
 
 export default Page;

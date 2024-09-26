@@ -2,10 +2,14 @@ import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
 import { ReactNode } from 'react';
 
-import { CssBaseline } from '@mui/material';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 
+import Box from '@mui/material/Box';
+import CssBaseline from '@mui/material/CssBaseline';
+import Toolbar from '@mui/material/Toolbar';
 import { ThemeProvider } from '@mui/material/styles';
+
+import Header from '@/components/header';
 
 import theme from '../theme';
 
@@ -23,11 +27,16 @@ const roboto = Roboto({
 
 const RootLayout = ({ children }: Readonly<{ children: ReactNode }>) => (
     <html lang='en'>
-        <body className={roboto.variable}>
+        <body className={roboto.variable} style={{ minHeight: '100vh' }}>
             <AppRouterCacheProvider>
                 <ThemeProvider theme={theme}>
                     <CssBaseline />
-                    {children}
+
+                    <Header />
+                    <Box component='main'>
+                        <Toolbar />
+                        {children}
+                    </Box>
                 </ThemeProvider>
             </AppRouterCacheProvider>
         </body>
