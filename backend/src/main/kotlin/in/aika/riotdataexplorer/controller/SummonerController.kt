@@ -1,14 +1,20 @@
 package `in`.aika.riotdataexplorer.controller
 
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import com.fasterxml.jackson.annotation.JsonView
+import `in`.aika.riotdataexplorer.domain.Views
+import `in`.aika.riotdataexplorer.service.SummonerService
+import org.springframework.web.bind.annotation.*
 
 @RequestMapping("/summoner")
 @RestController
-class SummonerController {
+class SummonerController(val summonerService: SummonerService) {
 
     @GetMapping
-    fun list(@RequestParam("q", required = false) q: String?) = listOf("Aikain#SOLA", "Aikain#EUW", q).filterNotNull()
+    fun list(@RequestParam("q", required = false) q: String?) =
+        summonerService.list(q)
+
+    @JsonView(Views.SummonerGet::class)
+    @GetMapping("{gameName}/{tagLine}")
+    fun get(@PathVariable("gameName") gameName: String, @PathVariable("tagLine") tagLine: String) =
+        summonerService.getSummoner(gameName, tagLine)
 }

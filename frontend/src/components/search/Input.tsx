@@ -1,8 +1,12 @@
 'use client';
 
+import Link from 'next/link';
 import { useMemo, useState, useTransition } from 'react';
 
+import { Typography } from '@mui/material';
+
 import Autocomplete from '@mui/material/Autocomplete';
+import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import TextField from '@mui/material/TextField';
 import { debounce } from '@mui/material/utils';
@@ -21,7 +25,6 @@ const Input = () => {
                 (q: string) =>
                     startTransition(async () =>
                         getSummoners(q).then(({ data, error }) => {
-                            console.log('test');
                             if (data) {
                                 setPlayers(data);
                                 setError(null);
@@ -46,7 +49,7 @@ const Input = () => {
             renderInput={(params) => (
                 <TextField
                     {...params}
-                    label='Summoner'
+                    label='Summoner#TAG'
                     slotProps={{
                         input: {
                             ...params.InputProps,
@@ -62,7 +65,26 @@ const Input = () => {
                     error={!!error}
                 />
             )}
-            sx={{ width: 400 }}
+            renderOption={({ key, ...rest }, option) => (
+                <Box component='li' key={key} {...rest}>
+                    <Typography
+                        component={Link}
+                        href={`/summoner/${encodeURIComponent(
+                            option.indexOf('#') !== -1
+                                ? `${option.substring(0, option.lastIndexOf('#'))}-${option.substring(option.lastIndexOf('#') + 1)}`
+                                : option,
+                        )}`}
+                        sx={{ width: '100%', py: 0.75, px: 1.75, textDecoration: 'none', color: 'inherit' }}>
+                        {option}
+                    </Typography>
+                </Box>
+            )}
+            slotProps={{
+                popper: {
+                    sx: { [`& li.MuiAutocomplete-option`]: { p: 0 } },
+                },
+            }}
+            sx={{ width: 400, [`& .MuiAutocomplete-option`]: { p: 0 } }}
         />
     );
 };

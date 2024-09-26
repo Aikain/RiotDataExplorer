@@ -9,6 +9,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
 import { ThemeProvider } from '@mui/material/styles';
 
+import Footer from '@/components/footer';
 import Header from '@/components/header';
 
 import theme from '../theme';
@@ -27,7 +28,7 @@ const roboto = Roboto({
 
 const RootLayout = ({ children }: Readonly<{ children: ReactNode }>) => (
     <html lang='en'>
-        <body className={roboto.variable} style={{ minHeight: '100vh' }}>
+        <body className={roboto.variable} style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
             <AppRouterCacheProvider>
                 <ThemeProvider theme={theme}>
                     <CssBaseline />
@@ -37,6 +38,7 @@ const RootLayout = ({ children }: Readonly<{ children: ReactNode }>) => (
                         <Toolbar />
                         {children}
                     </Box>
+                    <Footer />
                 </ThemeProvider>
             </AppRouterCacheProvider>
         </body>
