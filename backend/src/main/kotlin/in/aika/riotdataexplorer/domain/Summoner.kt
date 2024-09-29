@@ -1,7 +1,7 @@
 package `in`.aika.riotdataexplorer.domain
 
 import com.fasterxml.jackson.annotation.JsonView
-import `in`.aika.riotdataexplorer.api.model.SummonerDTO
+import `in`.aika.riotdataexplorer.api.model.general.summoner.SummonerDTO
 
 data class Summoner(
     val id: String,
