@@ -5,6 +5,8 @@ import `in`.aika.riotdataexplorer.api.model.riot.ActiveShard
 import `in`.aika.riotdataexplorer.api.model.riot.Game
 import `in`.aika.riotdataexplorer.domain.Account
 import `in`.aika.riotdataexplorer.repository.AccountRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.web.client.HttpClientErrorException.NotFound
@@ -17,7 +19,9 @@ class AccountService(
     private val summonerService: SummonerService,
 ) {
 
-    fun list(q: String?) = listOf("Aikain#SOLA", "Aikain#EUW", q).filterNotNull()
+    fun findByQ(q: String?, pageable: Pageable): Page<Account> = q
+        ?.let { accountRepository.findAllByGameNameStartsWith(q, pageable) }
+        ?: accountRepository.findAll(pageable)
 
     fun getAccount(gameName: String, tagLine: String): Account =
         accountRepository.findByGameNameAndTagLine(gameName, tagLine)

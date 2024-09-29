@@ -11,11 +11,12 @@ import CircularProgress from '@mui/material/CircularProgress';
 import TextField from '@mui/material/TextField';
 import { debounce } from '@mui/material/utils';
 
+import { findAccounts } from '@/lib/account';
+import { SimpleAccount } from '@/lib/account/types';
 import { ProblemDetails } from '@/lib/api/types';
-import { getSummoners } from '@/lib/summoner';
 
 const Input = () => {
-    const [players, setPlayers] = useState<string[]>([]);
+    const [accounts, setAccounts] = useState<SimpleAccount[]>([]);
     const [error, setError] = useState<ProblemDetails | null>(null);
     const [isPending, startTransition] = useTransition();
 
@@ -24,9 +25,9 @@ const Input = () => {
             debounce(
                 (q: string) =>
                     startTransition(async () =>
-                        getSummoners(q).then(({ data, error }) => {
+                        findAccounts(q).then(({ data, error }) => {
                             if (data) {
-                                setPlayers(data);
+                                setAccounts(data);
                                 setError(null);
                             } else {
                                 setError(error);
@@ -45,11 +46,12 @@ const Input = () => {
         <Autocomplete
             filterOptions={(x) => x}
             onInputChange={handleInputChange}
-            options={players}
+            getOptionLabel={(option) => `${option.gameName}#${option.tagLine}`}
+            options={accounts}
             renderInput={(params) => (
                 <TextField
                     {...params}
-                    label='Summoner#TAG'
+                    label='GameName#TAG'
                     slotProps={{
                         input: {
                             ...params.InputProps,
@@ -69,13 +71,9 @@ const Input = () => {
                 <Box component='li' key={key} {...rest}>
                     <Typography
                         component={Link}
-                        href={`/summoner/${encodeURIComponent(
-                            option.indexOf('#') !== -1
-                                ? `${option.substring(0, option.lastIndexOf('#'))}-${option.substring(option.lastIndexOf('#') + 1)}`
-                                : option,
-                        )}`}
+                        href={`/account/${encodeURIComponent(option.gameName)}-${option.tagLine}`}
                         sx={{ width: '100%', py: 0.75, px: 1.75, textDecoration: 'none', color: 'inherit' }}>
-                        {option}
+                        {option.gameName}#{option.tagLine}
                     </Typography>
                 </Box>
             )}

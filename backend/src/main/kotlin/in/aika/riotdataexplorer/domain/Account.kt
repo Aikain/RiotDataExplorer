@@ -12,11 +12,11 @@ class Account(
     @Id
     val puuid: String,
 
-    @JsonView(Views.AccountGet::class)
+    @JsonView(Views.AccountList::class)
     @Column(length = 16)
     val gameName: String,
 
-    @JsonView(Views.AccountGet::class)
+    @JsonView(Views.AccountList::class)
     @Column(length = 5)
     val tagLine: String,
 

@@ -5,7 +5,7 @@ import { parseRiotID } from '@/utils/parse';
 
 import Grid from '@mui/material/Grid2';
 
-import { getSummoner } from '@/lib/summoner';
+import { getAccount } from '@/lib/account';
 
 interface Props {
     params: { riotId: string };
@@ -16,7 +16,7 @@ const Page = async ({ params: { riotId } }: Props) => {
 
     if (!tagLine) notFound();
 
-    const { data: summoner, error } = await getSummoner(gameName, tagLine);
+    const { data: account, error } = await getAccount(gameName, tagLine);
 
     if (error) notFound();
 
@@ -25,8 +25,12 @@ const Page = async ({ params: { riotId } }: Props) => {
             <span>
                 {gameName}#{tagLine}
             </span>
-            <Image src={summoner.profileIcon} alt='Profile icon' width={128} height={128} />
-            <span>Level: {summoner.summonerLevel}</span>
+            {account.summoner && (
+                <>
+                    <Image src={account.summoner.profileIconUrl} alt='Profile icon' width={128} height={128} />
+                    <span>Level: {account.summoner.level}</span>
+                </>
+            )}
         </Grid>
     );
 };

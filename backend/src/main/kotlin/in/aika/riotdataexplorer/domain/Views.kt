@@ -1,5 +1,8 @@
 package `in`.aika.riotdataexplorer.domain
 
 class Views {
-    interface AccountGet
+    interface AccountList
+    interface AccountGet : AccountList, SummonerList
+
+    interface SummonerList
 }

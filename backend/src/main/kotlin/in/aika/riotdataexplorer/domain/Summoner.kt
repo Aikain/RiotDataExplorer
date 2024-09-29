@@ -21,7 +21,7 @@ class Summoner(
     val platform: LolPlatform,
     val accountId: String,
 
-    @JsonView(Views.AccountGet::class)
+    @JsonView(Views.SummonerList::class)
     val level: Long,
     val profileIconId: Int,
 
@@ -39,6 +39,6 @@ class Summoner(
         OffsetDateTime.now(ZoneOffset.UTC),
     )
 
-    @JsonView(Views.AccountGet::class)
+    @JsonView(Views.SummonerList::class)
     fun profileIconUrl() = DataDragonUrls.profileIconUrl(profileIconId)
 }
