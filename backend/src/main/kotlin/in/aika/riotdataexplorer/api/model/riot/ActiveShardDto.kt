@@ -4,6 +4,6 @@ import `in`.aika.riotdataexplorer.api.model.LogIgnoredProperties
 
 data class ActiveShardDto(
     val puuid: String,
-    val game: String,
-    val activeShard: String,
+    val game: Game,
+    val activeShard: ActiveShard,
 ) : LogIgnoredProperties()

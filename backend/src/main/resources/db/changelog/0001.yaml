@@ -1,0 +1,78 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1-account-and-summoner
+      author: Aikain
+      changes:
+        - createTable:
+            tableName: summoner
+            columns:
+              - column:
+                  name: platform
+                  type: ENUM('BR1', 'EUN1', 'EUW1', 'JP1', 'KR', 'LA1', 'LA2', 'ME1', 'NA1', 'OC1', 'TR1', 'RU', 'PH2', 'SG2', 'TH2', 'TW2', 'VN2')
+                  constraints:
+                    nullable: false
+              - column:
+                  name: id
+                  type: VARCHAR(255)
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: account_id
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+                    uniqueConstraintName: UK_summoner__account_id
+              - column:
+                  name: level
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: profile_icon_id
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: revision_date
+                  type: DATETIME
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated
+                  type: DATETIME
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: account
+            columns:
+              - column:
+                  name: puuid
+                  type: VARCHAR(255)
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: game_name
+                  type: VARCHAR(16)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: tag_line
+                  type: VARCHAR(5)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: summoner_id
+                  type: VARCHAR(255)
+                  constraints:
+                    foreignKeyName: FK_account__summoner__summoner_id
+                    referencedTableName: summoner
+                    referencedColumnNames: id
+              - column:
+                  name: active_shard
+                  type: ENUM('AMERICAS', 'ASIA', 'EUROPE', 'SEA', 'UNKNOWN')
+              - column:
+                  name: updated
+                  type: DATETIME
+                  constraints:
+                    nullable: false

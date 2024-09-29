@@ -1,40 +1,42 @@
 package `in`.aika.riotdataexplorer.service
 
 import `in`.aika.riotdataexplorer.api.client.lol.LolApiClient
-import `in`.aika.riotdataexplorer.api.client.lor.LorApiClient
-import `in`.aika.riotdataexplorer.api.client.riot.RiotApiClient
-import `in`.aika.riotdataexplorer.api.client.tft.TftApiClient
+import `in`.aika.riotdataexplorer.api.model.general.summoner.SummonerDTO
 import `in`.aika.riotdataexplorer.api.routing.LolPlatform
+import `in`.aika.riotdataexplorer.api.routing.LolRegion
 import `in`.aika.riotdataexplorer.domain.Summoner
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.HttpStatus
+import `in`.aika.riotdataexplorer.repository.SummonerRepository
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.web.client.HttpClientErrorException.NotFound
-import org.springframework.web.server.ResponseStatusException
 
 @Service
-class SummonerService {
+class SummonerService(
+    private val lolApiClient: LolApiClient,
+    private val summonerRepository: SummonerRepository,
+) {
 
-    @Autowired
-    lateinit var riotApiClient: RiotApiClient
+    // TODO: guess better order by IP or something?
+    fun getRegions() = listOf(LolRegion.EUROPE, LolRegion.AMERICAS, LolRegion.ASIA, LolRegion.SEA)
 
-    @Autowired
-    lateinit var lolApiClient: LolApiClient
-
-    @Autowired
-    lateinit var lorApiClient: LorApiClient
-
-    @Autowired
-    lateinit var tftApiClient: TftApiClient
-
-    fun list(q: String?) = listOf("Aikain#SOLA", "Aikain#EUW", q).filterNotNull()
-
-    fun getSummoner(gameName: String, tagLine: String): Summoner {
-        try {
-            val account = riotApiClient.accountByRiotId(gameName, tagLine)
-            return Summoner(lolApiClient.summonerByPuuid(LolPlatform.EUN1, account.puuid))
-        } catch (ex: NotFound) {
-            throw ResponseStatusException(HttpStatus.NOT_FOUND, "Summoner not found with given game name and tag line")
+    fun findSummoner(puuid: String, tagLine: String): Summoner? {
+        LolPlatform.fromTagLine(tagLine)?.let {
+            try {
+                return getSummoner(lolApiClient.summonerByPuuid(it, puuid), it)
+            } catch (ignored: NotFound) {}
         }
+        getRegions().forEach {
+            if (lolApiClient.matchesByPuuid(it, puuid, count = 1).isNotEmpty()) {
+                LolPlatform.byRegion(it).forEach{
+                    try {
+                        return getSummoner(lolApiClient.summonerByPuuid(it, puuid), it)
+                    } catch (ignored: NotFound) {}
+                }
+            }
+        }
+        return null
     }
+
+    fun getSummoner(summonerDTO: SummonerDTO, platform: LolPlatform): Summoner =
+        summonerRepository.findByIdOrNull(summonerDTO.id) ?: summonerRepository.save(Summoner(summonerDTO, platform))
 }

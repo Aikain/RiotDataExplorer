@@ -1,6 +1,17 @@
 spring:
   application:
     name: riot-data-explorer
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+  liquibase:
+    change-log: classpath:/db/changelog-root.yaml
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    show-sql: ${SHOW_SQL:false}
   mvc:
     problemdetails:
       enabled: true

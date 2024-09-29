@@ -152,7 +152,19 @@ class LolApiClient(
         start: Int? = 0,
         count: Int? = 20,
     ) =
-        lolRegionApis.getValue(platform.toRegion()).matchesByPuuid(puuid, startTime, endTime, queue, type, start, count)
+        matchesByPuuid(platform.toRegion(), puuid, startTime, endTime, queue, type, start, count)
+
+    fun matchesByPuuid(
+        region: LolRegion,
+        puuid: String,
+        startTime: Long? = null,
+        endTime: Long? = null,
+        queue: Int? = null,
+        type: MatchType? = null,
+        start: Int? = 0,
+        count: Int? = 20,
+    ) =
+        lolRegionApis.getValue(region).matchesByPuuid(puuid, startTime, endTime, queue, type, start, count)
 
     fun matchByMatchId(platform: LolPlatform, matchId: String) =
         lolRegionApis.getValue(platform.toRegion()).matchByMatchId(matchId)
