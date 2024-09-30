@@ -29,6 +29,10 @@ class Summoner(
     val revisionDate: OffsetDateTime,
     val updated: OffsetDateTime,
 ) {
+    @Transient
+    @JsonView(Views.SummonerList::class)
+    var profileIconUrl: String? = null
+
     constructor(summoner: SummonerDTO, platform: LolPlatform) : this(
         summoner.id,
         platform,
@@ -38,7 +42,4 @@ class Summoner(
         summoner.revisionDate,
         OffsetDateTime.now(ZoneOffset.UTC),
     )
-
-    @JsonView(Views.SummonerList::class)
-    fun profileIconUrl() = DataDragonUrls.profileIconUrl(profileIconId)
 }

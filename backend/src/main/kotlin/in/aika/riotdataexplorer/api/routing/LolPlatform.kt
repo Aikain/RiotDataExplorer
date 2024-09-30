@@ -32,6 +32,25 @@ enum class LolPlatform {
         OC1, PH2, SG2, TH2, TW2, VN2 -> LolRegion.SEA
     }
 
+    fun toDataDragonRealm(): String = when (this) {
+        BR1 -> "br"
+        EUN1 -> "eune"
+        EUW1 -> "euw"
+        JP1 -> "jp"
+        KR -> "kr"
+        LA1 -> "lan"
+        LA2 -> "las"
+        ME1 -> "na" // TODO: replace with correct realm
+        NA1 -> "na"
+        OC1 -> "oce"
+        TR1 -> "tr"
+        RU -> "ru"
+        PH2 -> "ph"
+        SG2 -> "sg"
+        TH2 -> "th"
+        TW2 -> "tw"
+        VN2 -> "vn"
+    }
     companion object {
         fun byRegion(region: LolRegion): List<LolPlatform> = when (region) {
             LolRegion.AMERICAS -> listOf(NA1, BR1, LA1, LA2)

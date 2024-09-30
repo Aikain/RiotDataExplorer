@@ -1,6 +1,21 @@
 spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:db;DATABASE_TO_UPPER=false;MODE=MySQL
+    username: sa
+    password: sa
   jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    show-sql: true
     properties:
       hibernate:
         globally_quoted_identifiers: true
         globally_quoted_identifiers_skip_column_definitions: true
+  liquibase:
+    change-log: classpath:/db/changelog-root.yaml
+
+logging:
+  level:
+    in.aika: TRACE
