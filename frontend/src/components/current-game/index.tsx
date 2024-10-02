@@ -109,18 +109,22 @@ const CurrentGame = ({ gameName, tagLine }: Props) => {
                                                     </Grid>
                                                     {'perks' in rest && (
                                                         <Grid container direction='column'>
-                                                            <Image
-                                                                src={rest.perks.perkStyle.iconUrl}
-                                                                alt={rest.perks.perkStyle.name}
-                                                                width={24}
-                                                                height={24}
-                                                            />
-                                                            <Image
-                                                                src={rest.perks.perkSubStyle.iconUrl}
-                                                                alt={rest.perks.perkSubStyle.name}
-                                                                width={24}
-                                                                height={24}
-                                                            />
+                                                            <Tooltip title={rest.perks.perkStyle.name}>
+                                                                <Image
+                                                                    src={rest.perks.perkStyle.iconUrl}
+                                                                    alt={rest.perks.perkStyle.name}
+                                                                    width={24}
+                                                                    height={24}
+                                                                />
+                                                            </Tooltip>
+                                                            <Tooltip title={rest.perks.perkSubStyle.name}>
+                                                                <Image
+                                                                    src={rest.perks.perkSubStyle.iconUrl}
+                                                                    alt={rest.perks.perkSubStyle.name}
+                                                                    width={24}
+                                                                    height={24}
+                                                                />
+                                                            </Tooltip>
                                                         </Grid>
                                                     )}
                                                     <SpriteImage {...champion.image} tooltip={champion.name} />
