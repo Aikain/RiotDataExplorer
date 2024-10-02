@@ -3,12 +3,11 @@
 import Link from 'next/link';
 import { useMemo, useState, useTransition } from 'react';
 
-import { Typography } from '@mui/material';
-
 import Autocomplete from '@mui/material/Autocomplete';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 import { debounce } from '@mui/material/utils';
 
 import { findAccounts } from '@/lib/account';
