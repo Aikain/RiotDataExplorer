@@ -10,6 +10,6 @@ data class ChampionPassive(
 ) : LogIgnoredProperties() {
 
     companion object {
-        val UNKNOWN = ChampionPassive("UNKNOWN", "", Image.UNKNOWN)
+        val UNKNOWN = ChampionPassive("UNKNOWN", "", Image.UNKNOWN.apply { updateUrls("") })
     }
 }
