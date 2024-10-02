@@ -84,11 +84,25 @@ const CurrentGame = ({ gameName, tagLine }: Props) => {
                                                     flexWrap='nowrap'
                                                     py={0.5}>
                                                     {account.summoner && (
-                                                        <SpriteImage
-                                                            {...account.summoner.profileIcon.image}
-                                                            width={36}
-                                                            height={36}
-                                                        />
+                                                        <Box sx={{ position: 'relative' }}>
+                                                            <SpriteImage
+                                                                {...account.summoner.profileIcon.image}
+                                                                width={36}
+                                                                height={36}
+                                                            />
+                                                            <Typography
+                                                                lineHeight={1}
+                                                                variant='caption'
+                                                                sx={{
+                                                                    position: 'absolute',
+                                                                    bottom: 0,
+                                                                    right: teamIndex % 2 ? 0 : 'auto',
+                                                                    left: teamIndex % 2 ? 'auto' : 0,
+                                                                    background: '#000000',
+                                                                }}>
+                                                                {account.summoner.level}
+                                                            </Typography>
+                                                        </Box>
                                                     )}
                                                     <Grid sx={teamIndex % 2 ? { ml: 'auto' } : { mr: 'auto' }}>
                                                         <AccountName {...account} />
