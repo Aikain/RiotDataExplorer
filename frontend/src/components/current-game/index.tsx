@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useEffect, useMemo, useState } from 'react';
 import { TransitionGroup } from 'react-transition-group';
 
@@ -87,6 +88,22 @@ const CurrentGame = ({ gameName, tagLine }: Props) => {
                                                 <Grid sx={teamIndex % 2 ? { ml: 'auto' } : { mr: 'auto' }}>
                                                     <AccountName {...account} />
                                                 </Grid>
+                                                {'perks' in rest && (
+                                                    <Grid container direction='column'>
+                                                        <Image
+                                                            src={rest.perks.perkStyle.iconUrl}
+                                                            alt={rest.perks.perkStyle.name}
+                                                            width={24}
+                                                            height={24}
+                                                        />
+                                                        <Image
+                                                            src={rest.perks.perkSubStyle.iconUrl}
+                                                            alt={rest.perks.perkSubStyle.name}
+                                                            width={24}
+                                                            height={24}
+                                                        />
+                                                    </Grid>
+                                                )}
                                                 <SpriteImage {...champion.image} tooltip={champion.name} />
                                                 {'summonerSpell1' in rest && (
                                                     <Grid container direction='column'>

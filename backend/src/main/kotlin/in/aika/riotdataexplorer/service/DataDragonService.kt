@@ -5,6 +5,8 @@ import `in`.aika.riotdataexplorer.api.model.data.ProfileIcon
 import `in`.aika.riotdataexplorer.api.model.data.Realm
 import `in`.aika.riotdataexplorer.api.model.data.SummonerSpell
 import `in`.aika.riotdataexplorer.api.model.data.lol.Champion
+import `in`.aika.riotdataexplorer.api.model.data.lol.Rune
+import `in`.aika.riotdataexplorer.api.model.data.lol.RuneTree
 import `in`.aika.riotdataexplorer.api.model.data.riot.GameMap
 import `in`.aika.riotdataexplorer.api.model.data.riot.GameMode
 import `in`.aika.riotdataexplorer.api.model.data.riot.GameType
@@ -31,8 +33,10 @@ class DataDragonService(
     private lateinit var gameTypes: List<GameType>
     private lateinit var queues: List<Queue>
     private lateinit var realms: Map<LolPlatform, Realm>
-    private lateinit var profileIcons: Map<LolPlatform, Map<String, ProfileIcon>>
+
     private lateinit var champions: Map<LolPlatform, Map<String, Champion>>
+    private lateinit var profileIcons: Map<LolPlatform, Map<String, ProfileIcon>>
+    private lateinit var runeTrees: Map<LolPlatform, List<RuneTree>>
     private lateinit var summonerSpells: Map<LolPlatform, Map<String, SummonerSpell>>
 
     init {
@@ -60,13 +64,18 @@ class DataDragonService(
                 },
                 async(Dispatchers.IO) {
                     // TODO: find out whether it is necessary to apply for each region separately
+                    val data = dataApiClient.championsFull(VERSION, LANGUAGE)
+                    champions = LolPlatform.entries.associateWith { data }
+                },
+                async(Dispatchers.IO) {
+                    // TODO: find out whether it is necessary to apply for each region separately
                     val data = dataApiClient.profileIcons(VERSION, LANGUAGE)
                     profileIcons = LolPlatform.entries.associateWith { data }
                 },
                 async(Dispatchers.IO) {
                     // TODO: find out whether it is necessary to apply for each region separately
-                    val data = dataApiClient.championsFull(VERSION, LANGUAGE)
-                    champions = LolPlatform.entries.associateWith { data }
+                    val data = dataApiClient.runesReforged(VERSION, LANGUAGE)
+                    runeTrees = LolPlatform.entries.associateWith { data }
                 },
                 async(Dispatchers.IO) {
                     // TODO: find out whether it is necessary to apply for each region separately
@@ -110,4 +119,12 @@ class DataDragonService(
     fun getSummonerSpell(summonerSpellId: Long): SummonerSpell =
         // TODO: remove hardcoded platform
         summonerSpells[LolPlatform.EUN1]?.get(summonerSpellId.toString()) ?: SummonerSpell.UNKNOWN
+
+    fun getRunes(ids: List<Long>): List<Rune> =
+        // TODO: remove hardcoded platform
+        runeTrees[LolPlatform.EUN1]?.flatMap { it.slots.flatMap { it.runes.filter { ids.contains(it.id) } } } ?: listOf()
+
+    fun getRuneTree(id: Long): RuneTree =
+        // TODO: remove hardcoded platform
+        runeTrees[LolPlatform.EUN1]?.find { it.id == id } ?: RuneTree.UNKNOWN
 }

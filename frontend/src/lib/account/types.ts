@@ -62,9 +62,18 @@ interface LolParticipant extends Participant {
     summonerSpell1: SummonerSpell;
     summonerSpell2: SummonerSpell;
     perks: {
-        perkIds: number[];
-        perkStyle: number;
-        perkSubStyle: number;
+        perks: {
+            name: string;
+            iconUrl: string;
+        }[];
+        perkStyle: {
+            name: string;
+            iconUrl: string;
+        };
+        perkSubStyle: {
+            name: string;
+            iconUrl: string;
+        };
     };
 }
 

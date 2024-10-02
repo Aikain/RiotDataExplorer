@@ -62,7 +62,13 @@ class CurrentGameService(
         dataDragonService.getChampion(participant.championId),
         dataDragonService.getSummonerSpell(participant.spell1Id),
         dataDragonService.getSummonerSpell(participant.spell2Id),
-        participant.perks!!,
+        participant.perks!!.let {
+            Perks(
+                dataDragonService.getRunes(it.perkIds),
+                dataDragonService.getRuneTree(it.perkStyle),
+                dataDragonService.getRuneTree(it.perkSubStyle),
+            )
+        },
     )
 
     private fun participantToTftParticipant(participant: CurrentGameParticipant): TftParticipant = TftParticipant(
