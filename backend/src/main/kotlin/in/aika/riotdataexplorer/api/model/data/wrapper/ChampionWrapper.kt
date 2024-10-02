@@ -7,6 +7,7 @@ data class ChampionWrapper<Data : DataFiller<Data>>(
     val format: String, // TODO: enum? full, standAloneComplex
     val version: String,
     val data: Map<String, Data>,
+    val keys: Map<String, String>,
 ) : LogIgnoredProperties() {
 
     fun getFilledData(): Map<String, Data> = data.mapValues { it.value.getFilledData(version) }
