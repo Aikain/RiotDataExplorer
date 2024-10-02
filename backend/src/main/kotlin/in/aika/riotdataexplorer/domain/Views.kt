@@ -4,5 +4,7 @@ class Views {
     interface AccountList : SummonerList
     interface AccountGet : AccountList
 
+    interface CurrentGameGet : AccountGet
+
     interface SummonerList
 }

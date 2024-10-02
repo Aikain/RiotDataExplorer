@@ -18,6 +18,7 @@ class AccountService(
     private val riotApiClient: RiotApiClient,
     private val accountRepository: AccountRepository,
     private val summonerService: SummonerService,
+    @Lazy private val currentGameService: CurrentGameService,
 ) {
 
     fun findByQ(q: String?, pageable: Pageable): Page<Account> = q
@@ -60,4 +61,7 @@ class AccountService(
         } catch (ignored: NotFound) {}
         return null
     }
+
+    fun getCurrentGame(gameName: String, tagLine: String) =
+        currentGameService.getCurrentGame(getAccount(gameName, tagLine))
 }

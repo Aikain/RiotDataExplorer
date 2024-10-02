@@ -1,6 +1,10 @@
 spring:
   application:
     name: riot-data-explorer
+  cache:
+    cache-names: "currentGames"
+    caffeine:
+      spec: "expireAfterWrite=10s"
   datasource:
     url: ${DATABASE_URL}
     username: ${DATABASE_USERNAME}

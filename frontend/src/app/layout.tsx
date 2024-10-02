@@ -27,7 +27,7 @@ const roboto = Roboto({
 });
 
 const RootLayout = ({ children }: Readonly<{ children: ReactNode }>) => (
-    <html lang='en'>
+    <html lang='en' style={{ overflowX: 'hidden', marginRight: 'calc(-1 * (100vw - 100%)' }}>
         <body className={roboto.variable} style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
             <AppRouterCacheProvider>
                 <ThemeProvider theme={theme}>

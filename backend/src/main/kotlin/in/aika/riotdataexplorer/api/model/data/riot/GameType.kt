@@ -1,8 +1,11 @@
 package `in`.aika.riotdataexplorer.api.model.data.riot
 
 import com.fasterxml.jackson.annotation.JsonAlias
+import com.fasterxml.jackson.annotation.JsonView
 import `in`.aika.riotdataexplorer.api.model.LogIgnoredProperties
+import `in`.aika.riotdataexplorer.domain.Views
 
+@JsonView(Views.CurrentGameGet::class)
 data class GameType(
     @JsonAlias("gametype")
     val gameType: String,

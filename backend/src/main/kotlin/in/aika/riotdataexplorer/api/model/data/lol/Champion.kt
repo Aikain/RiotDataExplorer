@@ -1,14 +1,21 @@
 package `in`.aika.riotdataexplorer.api.model.data.lol
 
+import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.JsonView
 import `in`.aika.riotdataexplorer.api.model.LogIgnoredProperties
 import `in`.aika.riotdataexplorer.api.model.data.general.Image
 import `in`.aika.riotdataexplorer.api.model.data.wrapper.DataFiller
+import `in`.aika.riotdataexplorer.domain.Views
 
 data class Champion(
     val id: String,
     val key: String,
+
+    @JsonView(Views.CurrentGameGet::class)
     val name: String,
     val title: String,
+
+    @JsonView(Views.CurrentGameGet::class)
     val image: Image,
     val skins: List<ChampionSkin>,
     val lore: String,
@@ -21,6 +28,8 @@ data class Champion(
     val stats: ChampionStats,
     val spells: List<ChampionSpell>,
     val passive: ChampionPassive,
+
+    @JsonIgnore
     val recommended: List<Any>,
 ) : LogIgnoredProperties(), DataFiller<Champion> {
 

@@ -1,11 +1,15 @@
 package `in`.aika.riotdataexplorer.api.model.data
 
+import com.fasterxml.jackson.annotation.JsonView
 import `in`.aika.riotdataexplorer.api.model.LogIgnoredProperties
 import `in`.aika.riotdataexplorer.api.model.data.general.Image
 import `in`.aika.riotdataexplorer.api.model.data.wrapper.DataFiller
+import `in`.aika.riotdataexplorer.domain.Views
 
 data class SummonerSpell(
     val id: String,
+
+    @JsonView(Views.CurrentGameGet::class)
     val name: String,
     val description: String,
     val tooltip: String,
@@ -25,6 +29,8 @@ data class SummonerSpell(
     val maxammo: String,
     val range: List<Int>,
     val rangeBurn: String,
+
+    @JsonView(Views.CurrentGameGet::class)
     val image: Image,
     val resource: String,
 ) : LogIgnoredProperties(), DataFiller<SummonerSpell> {

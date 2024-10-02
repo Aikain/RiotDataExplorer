@@ -10,31 +10,37 @@ data class Image(
     val group: String,
 
     @JsonView(
+        Views.CurrentGameGet::class,
         Views.SummonerList::class,
     )
     val x: Int,
 
     @JsonView(
+        Views.CurrentGameGet::class,
         Views.SummonerList::class,
     )
     val y: Int,
 
     @JsonView(
+        Views.CurrentGameGet::class,
         Views.SummonerList::class,
     )
     val w: Int,
 
     @JsonView(
+        Views.CurrentGameGet::class,
         Views.SummonerList::class,
     )
     val h: Int,
 ) : LogIgnoredProperties() {
     @JsonView(
+        Views.CurrentGameGet::class,
         Views.SummonerList::class,
     )
     lateinit var url: String
 
     @JsonView(
+        Views.CurrentGameGet::class,
         Views.SummonerList::class,
     )
     lateinit var spriteUrl: String
