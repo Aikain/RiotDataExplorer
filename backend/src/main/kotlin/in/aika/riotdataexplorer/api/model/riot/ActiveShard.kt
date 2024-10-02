@@ -7,6 +7,9 @@ enum class ActiveShard {
     @JsonProperty("americas")
     AMERICAS,
 
+    @JsonProperty("apac")
+    APAC,
+
     @JsonProperty("asia")
     ASIA,
 

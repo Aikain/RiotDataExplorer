@@ -1,6 +1,8 @@
 package `in`.aika.riotdataexplorer.api.model.data
 
 import `in`.aika.riotdataexplorer.api.model.LogIgnoredProperties
+import `in`.aika.riotdataexplorer.api.model.data.general.Image
+import `in`.aika.riotdataexplorer.api.model.data.wrapper.DataFiller
 
 data class SummonerSpell(
     val id: String,
@@ -25,4 +27,35 @@ data class SummonerSpell(
     val rangeBurn: String,
     val image: Image,
     val resource: String,
-) : LogIgnoredProperties()
+) : LogIgnoredProperties(), DataFiller<SummonerSpell> {
+    companion object {
+        val UNKNOWN = SummonerSpell(
+            "",
+            "",
+            "",
+            "",
+            0,
+            listOf(),
+            "",
+            listOf(),
+            "",
+            "",
+            listOf(),
+            listOf(),
+            listOf(),
+            "",
+            0,
+            listOf(),
+            "",
+            "",
+            listOf(),
+            "",
+            Image.UNKNOWN,
+            "",
+        )
+    }
+
+    override fun getFilledData(version: String): SummonerSpell = this.apply {
+        image.updateUrls(version)
+    }
+}

@@ -1,6 +1,8 @@
-package `in`.aika.riotdataexplorer.api.model.data
+package `in`.aika.riotdataexplorer.api.model.data.lol
 
 import `in`.aika.riotdataexplorer.api.model.LogIgnoredProperties
+import `in`.aika.riotdataexplorer.api.model.data.general.Image
+import `in`.aika.riotdataexplorer.api.model.data.wrapper.DataFiller
 
 data class Item(
     val name: String,
@@ -13,4 +15,9 @@ data class Item(
     val tags: List<String>,
     val maps: Map<String, Boolean>,
     val stats: Map<String, Int>,
-) : LogIgnoredProperties()
+) : LogIgnoredProperties(), DataFiller<Item> {
+
+    override fun getFilledData(version: String): Item = this.apply {
+        image.updateUrls(version)
+    }
+}

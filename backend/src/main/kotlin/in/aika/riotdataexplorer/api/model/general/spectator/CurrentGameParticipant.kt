@@ -10,7 +10,7 @@ data class CurrentGameParticipant(
     val bot: Boolean,
 
     val teamId: Long,
-    val championId: Long,
+    val championId: Int,
 
     val spell1Id: Long,
     val spell2Id: Long,

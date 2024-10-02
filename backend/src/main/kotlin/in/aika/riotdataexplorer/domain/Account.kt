@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonView
 import `in`.aika.riotdataexplorer.api.model.riot.AccountDto
 import `in`.aika.riotdataexplorer.api.model.riot.ActiveShard
 import jakarta.persistence.*
+import org.springframework.data.domain.Persistable
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
 
@@ -27,7 +28,7 @@ class Account(
 
     @Enumerated(EnumType.STRING)
     val activeShard: ActiveShard?,
-    val updated: OffsetDateTime,
+    val updated: OffsetDateTime = OffsetDateTime.now(ZoneOffset.UTC),
 ) {
 
     constructor(account: AccountDto, summoner: Summoner?, activeShard: ActiveShard?) : this(

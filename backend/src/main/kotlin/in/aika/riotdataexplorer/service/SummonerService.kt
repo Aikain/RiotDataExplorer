@@ -37,6 +37,6 @@ class SummonerService(
         return null
     }
 
-    fun getSummoner(summonerDTO: SummonerDTO, platform: LolPlatform): Summoner =
+    private fun getSummoner(summonerDTO: SummonerDTO, platform: LolPlatform): Summoner =
         summonerRepository.findByIdOrNull(summonerDTO.id) ?: summonerRepository.save(Summoner(summonerDTO, platform))
 }

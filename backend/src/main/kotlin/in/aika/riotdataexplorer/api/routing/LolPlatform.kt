@@ -32,6 +32,26 @@ enum class LolPlatform {
         OC1, PH2, SG2, TH2, TW2, VN2 -> LolRegion.SEA
     }
 
+    fun toTftPlatform(): TftPlatform = when (this) {
+        BR1 -> TftPlatform.BR1
+        EUN1 -> TftPlatform.EUN1
+        EUW1 -> TftPlatform.EUW1
+        JP1 -> TftPlatform.JP1
+        KR -> TftPlatform.KR
+        LA1 -> TftPlatform.LA1
+        LA2 -> TftPlatform.LA2
+        ME1 -> TftPlatform.ME1
+        NA1 -> TftPlatform.NA1
+        OC1 -> TftPlatform.OC1
+        TR1 -> TftPlatform.TR1
+        RU -> TftPlatform.RU
+        PH2 -> TftPlatform.PH2
+        SG2 -> TftPlatform.SG2
+        TH2 -> TftPlatform.TH2
+        TW2 -> TftPlatform.TW2
+        VN2 -> TftPlatform.VN2
+    }
+
     fun toDataDragonRealm(): String = when (this) {
         BR1 -> "br"
         EUN1 -> "eune"

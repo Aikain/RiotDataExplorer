@@ -1,4 +1,4 @@
-package `in`.aika.riotdataexplorer.api.model.data
+package `in`.aika.riotdataexplorer.api.model.data.riot
 
 import `in`.aika.riotdataexplorer.api.model.LogIgnoredProperties
 

@@ -10,8 +10,8 @@ data class CurrentGameInfo(
     val platformId: String,
     val gameMode: String,
     val gameType: String,
-    val gameQueueConfigId: Long,
-    val mapId: Long,
+    val gameQueueConfigId: Int,
+    val mapId: Int,
 
     @JsonDeserialize(using = UnixMilliSecondsOffsetDateTimeDeserializer::class)
     val gameStartTime: OffsetDateTime,

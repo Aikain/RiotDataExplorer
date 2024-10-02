@@ -7,8 +7,8 @@ data class FeaturedGameInfo(
     val platformId: String,
     val gameMode: String,
     val gameType: String,
-    val gameQueueConfigId: Long,
-    val mapId: Long,
+    val gameQueueConfigId: Int,
+    val mapId: Int,
     val participants: List<Participant>,
     val bannedChampions: List<BannedChampion>,
     val gameLength: Long, // seconds

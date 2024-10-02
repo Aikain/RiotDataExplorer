@@ -1,6 +1,6 @@
 package `in`.aika.riotdataexplorer.api.client.data
 
-import `in`.aika.riotdataexplorer.api.model.data.*
+import `in`.aika.riotdataexplorer.api.model.data.riot.*
 import org.springframework.web.service.annotation.GetExchange
 
 interface StaticRiotApi {

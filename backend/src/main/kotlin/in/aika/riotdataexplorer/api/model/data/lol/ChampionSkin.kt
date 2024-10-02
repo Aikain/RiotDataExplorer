@@ -1,4 +1,4 @@
-package `in`.aika.riotdataexplorer.api.model.data
+package `in`.aika.riotdataexplorer.api.model.data.lol
 
 import `in`.aika.riotdataexplorer.api.model.LogIgnoredProperties
 
@@ -7,4 +7,7 @@ data class ChampionSkin(
     val num: Int,
     val name: String,
     val chromas: Boolean,
-) : LogIgnoredProperties()
+) : LogIgnoredProperties() {
+    lateinit var splashImgUrl: String
+    lateinit var loadingImgUrl: String
+}

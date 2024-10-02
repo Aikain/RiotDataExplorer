@@ -1,8 +1,10 @@
 package `in`.aika.riotdataexplorer.api
 
+import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.MapperFeature
 import `in`.aika.riotdataexplorer.api.client.data.LolDataDragonApi
 import `in`.aika.riotdataexplorer.api.client.data.StaticRiotApi
+import `in`.aika.riotdataexplorer.api.client.data.TftDataDragonApi
 import mu.KotlinLogging
 import org.springframework.http.HttpRequest
 import org.springframework.http.client.ClientHttpRequestExecution
@@ -33,6 +35,9 @@ class Utils {
         fun createStaticRiotApiClient(): StaticRiotApi =
             createApiClient("https://static.developer.riotgames.com/", StaticRiotApi::class.java)
 
+        fun createTftDataDragonApiClient(): TftDataDragonApi =
+            createApiClient("https://ddragon.leagueoflegends.com", TftDataDragonApi::class.java)
+
         private fun <T> createApiClient(baseUrl: String, serviceType: Class<T>): T = HttpServiceProxyFactory
             .builderFor(RestClientAdapter.create(RestClient.builder()
                 .baseUrl(baseUrl)
@@ -53,8 +58,10 @@ class Utils {
 
         private fun initMessageConverters(messageConverters: MutableList<HttpMessageConverter<*>?>) {
             messageConverters.forEach {
-                if (it is MappingJackson2HttpMessageConverter)
+                if (it is MappingJackson2HttpMessageConverter) {
                     it.objectMapper.enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS)
+                    it.objectMapper.enable(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_USING_DEFAULT_VALUE)
+                }
             }
         }
     }

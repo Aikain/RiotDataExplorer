@@ -1,4 +1,4 @@
-package `in`.aika.riotdataexplorer.api.model.data
+package `in`.aika.riotdataexplorer.api.model.data.lol
 
 import `in`.aika.riotdataexplorer.api.model.LogIgnoredProperties
 
@@ -23,4 +23,30 @@ data class ChampionStats(
     val attackdamageperlevel: Float,
     val attackspeedperlevel: Float,
     val attackspeed: Float
-) : LogIgnoredProperties()
+) : LogIgnoredProperties() {
+
+    companion object {
+        val UNKNOWN = ChampionStats(
+            0,
+            0,
+            0,
+            0f,
+            0,
+            0,
+            0f,
+            0,
+            0f,
+            0,
+            0f,
+            0f,
+            0f,
+            0f,
+            0,
+            0,
+            0,
+            0f,
+            0f,
+            0f,
+        )
+    }
+}

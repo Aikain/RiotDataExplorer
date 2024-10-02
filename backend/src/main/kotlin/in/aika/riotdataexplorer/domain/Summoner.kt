@@ -2,6 +2,7 @@ package `in`.aika.riotdataexplorer.domain
 
 import com.fasterxml.jackson.annotation.JsonView
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import `in`.aika.riotdataexplorer.api.model.data.ProfileIcon
 import `in`.aika.riotdataexplorer.api.model.general.summoner.SummonerDTO
 import `in`.aika.riotdataexplorer.api.routing.LolPlatform
 import `in`.aika.riotdataexplorer.converter.UnixMilliSecondsOffsetDateTimeDeserializer
@@ -31,7 +32,7 @@ class Summoner(
 ) {
     @Transient
     @JsonView(Views.SummonerList::class)
-    var profileIconUrl: String? = null
+    var profileIcon: ProfileIcon? = null
 
     constructor(summoner: SummonerDTO, platform: LolPlatform) : this(
         summoner.id,

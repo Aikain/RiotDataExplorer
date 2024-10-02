@@ -1,13 +1,14 @@
-package `in`.aika.riotdataexplorer.api.model.data
+package `in`.aika.riotdataexplorer.api.model.data.lol
 
 import `in`.aika.riotdataexplorer.api.model.LogIgnoredProperties
+import `in`.aika.riotdataexplorer.api.model.data.general.Image
 
 data class ChampionSpell(
     val id: String,
     val name: String,
     val description: String,
     val tooltip: String,
-    val leveltip: ChampionSpellLevelTip,
+    val leveltip: ChampionSpellLevelTip?,
     val maxrank: Int,
     val cooldown: List<Int>,
     val cooldownBurn: String,
@@ -19,8 +20,8 @@ data class ChampionSpell(
     val vars: List<Any>,
     val costType: String,
     val maxammo: String,
-    val range: List<Int>,
+    val range: List<UInt>,
     val rangeBurn: String,
     val image: Image,
-    val resource: String,
+    val resource: String?,
 ) : LogIgnoredProperties()

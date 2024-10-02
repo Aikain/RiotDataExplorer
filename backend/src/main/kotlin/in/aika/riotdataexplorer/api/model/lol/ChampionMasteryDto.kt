@@ -7,7 +7,7 @@ import java.time.OffsetDateTime
 
 data class ChampionMasteryDto(
     val puuid: String, // encrypted
-    val championId: Long,
+    val championId: Int,
     val championLevel: Int,
     val championPoints: Int,
 
