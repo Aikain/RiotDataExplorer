@@ -58,6 +58,12 @@ interface Participant {
     champion: SimpleChampion;
 }
 
+export interface BannedChampion {
+    pickTurn: number;
+    champion: SimpleChampion;
+    teamId: number;
+}
+
 interface LolParticipant extends Participant {
     summonerSpell1: SummonerSpell;
     summonerSpell2: SummonerSpell;
@@ -80,11 +86,7 @@ interface LolParticipant extends Participant {
 type TftParticipant = Participant;
 
 interface CurrentLolGame extends AbstractCurrentGame<Queue, LolParticipant> {
-    bannedChampions: {
-        pickTurn: number;
-        champion: SimpleChampion;
-        teamId: number;
-    }[];
+    bannedChampions: BannedChampion[];
 }
 
 type CurrentTftGame = AbstractCurrentGame<Queue, TftParticipant>;
