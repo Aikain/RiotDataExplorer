@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
 import { parseRiotID } from '@/utils/parse';
@@ -6,6 +5,7 @@ import { parseRiotID } from '@/utils/parse';
 import Grid from '@mui/material/Grid2';
 
 import CurrentGame from '@/components/current-game';
+import SummonerIcon from '@/components/summoner-icon';
 import { getAccount } from '@/lib/account';
 
 interface Props {
@@ -26,12 +26,7 @@ const Page = async ({ params: { riotId } }: Props) => {
             <span>
                 {gameName}#{tagLine}
             </span>
-            {account.summoner && (
-                <>
-                    <Image src={account.summoner.profileIcon.image.url} alt='Profile icon' width={128} height={128} />
-                    <span>Level: {account.summoner.level}</span>
-                </>
-            )}
+            {account.summoner && <SummonerIcon {...account.summoner} width={128} height={128} levelPosition='middle' />}
             <CurrentGame gameName={account.gameName} tagLine={account.tagLine} />
         </Grid>
     );

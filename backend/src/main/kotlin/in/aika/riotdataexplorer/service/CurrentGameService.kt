@@ -49,7 +49,7 @@ class CurrentGameService(
         currentGame.platformId,
         dataDragonService.getGameMode(currentGame.gameMode),
         dataDragonService.getGameType(currentGame.gameType),
-        dataDragonService.getQueue(currentGame.gameQueueConfigId),
+        dataDragonService.getTftQueue(currentGame.gameQueueConfigId),
         dataDragonService.getGameMap(currentGame.mapId),
         currentGame.gameStartTime,
         currentGame.participants.map(::participantToTftParticipant),
@@ -75,6 +75,5 @@ class CurrentGameService(
         dataDragonService.fillStaticData(accountService.getAccountByPuuid(participant.puuid, participant.riotId)),
         participant.bot,
         participant.teamId,
-        dataDragonService.getChampion(participant.championId),
     )
 }

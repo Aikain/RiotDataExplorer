@@ -39,7 +39,7 @@ data class Champion(
             "0",
             "",
             "",
-            Image.UNKNOWN.apply { updateUrls("") },
+            Image.UNKNOWN,
             listOf(),
             "",
             "",

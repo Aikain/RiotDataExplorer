@@ -7,5 +7,4 @@ sealed class Participant {
     abstract val account: Account
     abstract val bot: Boolean // TODO: always false?
     abstract val teamId: Long
-    abstract val champion: Champion
 }

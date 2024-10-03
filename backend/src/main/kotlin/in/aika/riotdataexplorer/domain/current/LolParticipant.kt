@@ -17,7 +17,7 @@ data class LolParticipant(
     override val teamId: Long,
 
     @JsonView(Views.CurrentGameGet::class)
-    override val champion: Champion,
+    val champion: Champion,
 
     @JsonView(Views.CurrentGameGet::class)
     val summonerSpell1: SummonerSpell,

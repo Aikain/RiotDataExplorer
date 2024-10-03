@@ -14,7 +14,4 @@ data class TftParticipant(
 
     @JsonView(Views.CurrentGameGet::class)
     override val teamId: Long,
-
-    @JsonView(Views.CurrentGameGet::class)
-    override val champion: Champion,
 ) : Participant()

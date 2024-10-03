@@ -51,11 +51,16 @@ interface Queue {
     description: string;
 }
 
+interface TftQueue {
+    name: string;
+    queueType: string;
+    image: Image;
+}
+
 interface Participant {
     account: Account;
     bot: boolean;
     teamId: number;
-    champion: SimpleChampion;
 }
 
 export interface BannedChampion {
@@ -65,6 +70,7 @@ export interface BannedChampion {
 }
 
 interface LolParticipant extends Participant {
+    champion: SimpleChampion;
     summonerSpell1: SummonerSpell;
     summonerSpell2: SummonerSpell;
     perks: {
@@ -85,10 +91,13 @@ interface LolParticipant extends Participant {
 
 type TftParticipant = Participant;
 
-interface CurrentLolGame extends AbstractCurrentGame<Queue, LolParticipant> {
+export interface CurrentLolGame extends AbstractCurrentGame<Queue, LolParticipant> {
+    '@type': 'LOL';
     bannedChampions: BannedChampion[];
 }
 
-type CurrentTftGame = AbstractCurrentGame<Queue, TftParticipant>;
+export interface CurrentTftGame extends AbstractCurrentGame<TftQueue, TftParticipant> {
+    '@type': 'TFT';
+}
 
 export type CurrentGame = CurrentLolGame | CurrentTftGame;

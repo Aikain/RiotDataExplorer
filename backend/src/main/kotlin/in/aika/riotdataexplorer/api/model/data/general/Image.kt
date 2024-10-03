@@ -46,7 +46,7 @@ data class Image(
     lateinit var spriteUrl: String
 
     companion object {
-        val UNKNOWN = Image("", "", "" , 0,0,0,0)
+        val UNKNOWN = Image("", "", "" , 0,0,0,0).apply { updateUrls("") }
     }
 
     fun updateUrls(version: String) {

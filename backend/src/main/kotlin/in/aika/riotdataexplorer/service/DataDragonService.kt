@@ -11,7 +11,9 @@ import `in`.aika.riotdataexplorer.api.model.data.riot.GameMap
 import `in`.aika.riotdataexplorer.api.model.data.riot.GameMode
 import `in`.aika.riotdataexplorer.api.model.data.riot.GameType
 import `in`.aika.riotdataexplorer.api.model.data.riot.Queue
+import `in`.aika.riotdataexplorer.api.model.data.tft.TftQueue
 import `in`.aika.riotdataexplorer.api.routing.LolPlatform
+import `in`.aika.riotdataexplorer.api.routing.TftPlatform
 import `in`.aika.riotdataexplorer.domain.Account
 import `in`.aika.riotdataexplorer.domain.Summoner
 import kotlinx.coroutines.Dispatchers
@@ -34,10 +36,14 @@ class DataDragonService(
     private lateinit var queues: List<Queue>
     private lateinit var realms: Map<LolPlatform, Realm>
 
+    // lol
     private lateinit var champions: Map<LolPlatform, Map<String, Champion>>
     private lateinit var profileIcons: Map<LolPlatform, Map<String, ProfileIcon>>
     private lateinit var runeTrees: Map<LolPlatform, List<RuneTree>>
     private lateinit var summonerSpells: Map<LolPlatform, Map<String, SummonerSpell>>
+
+    // tft
+    private lateinit var tftQueues: Map<TftPlatform, Map<String, TftQueue>>
 
     init {
         runBlocking {
@@ -81,6 +87,11 @@ class DataDragonService(
                     // TODO: find out whether it is necessary to apply for each region separately
                     val data = dataApiClient.summonerSpells(VERSION, LANGUAGE)
                     summonerSpells = LolPlatform.entries.associateWith { data }
+                },
+                async(Dispatchers.IO) {
+                    // TODO: find out whether it is necessary to apply for each region separately
+                    val data = dataApiClient.tftQueues(VERSION, LANGUAGE)
+                    tftQueues = TftPlatform.entries.associateWith { data }
                 },
             )
         }
@@ -127,4 +138,8 @@ class DataDragonService(
     fun getRuneTree(id: Long): RuneTree =
         // TODO: remove hardcoded platform
         runeTrees[LolPlatform.EUN1]?.find { it.id == id } ?: RuneTree.UNKNOWN
+
+    fun getTftQueue(queueId: Int): TftQueue =
+        // TODO: remove hardcoded platform
+        tftQueues[TftPlatform.EUN1]?.get(queueId.toString()) ?: TftQueue.UNKNOWN
 }
