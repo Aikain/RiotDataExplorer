@@ -76,3 +76,12 @@ databaseChangeLog:
                   type: DATETIME
                   constraints:
                     nullable: false
+
+  - changeSet:
+      id: 2-account-active-shard-apac
+      author: Aikain
+      changes:
+        - modifyDataType:
+            tableName: account
+            columnName: active_shard
+            newDataType: ENUM('AMERICAS', 'APAC', 'ASIA', 'EUROPE', 'SEA', 'UNKNOWN')
