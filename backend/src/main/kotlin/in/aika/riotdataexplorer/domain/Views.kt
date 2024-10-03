@@ -6,5 +6,8 @@ class Views {
 
     interface CurrentGameGet : AccountGet
 
+    interface MatchList
+    interface MatchGet : MatchList
+
     interface SummonerList
 }

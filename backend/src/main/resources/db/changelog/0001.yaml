@@ -85,3 +85,125 @@ databaseChangeLog:
             tableName: account
             columnName: active_shard
             newDataType: ENUM('AMERICAS', 'APAC', 'ASIA', 'EUROPE', 'SEA', 'UNKNOWN')
+
+  - changeSet:
+      id: 3-match
+      author: Aikain
+      changes:
+        - createTable:
+            tableName: lol_match
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: match_id
+                  type: VARCHAR(16)
+                  constraints:
+                    uniqueConstraintName: UK_lol_match__match_id
+                    nullable: false
+                    unique: true
+              - column:
+                  name: status
+                  type: ENUM('AVAILABLE', 'IN_PROGRESS', 'READY')
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: lor_match
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: match_id
+                  type: UUID
+                  constraints:
+                    uniqueConstraintName: UK_lor_match__match_id
+                    nullable: false
+                    unique: true
+              - column:
+                  name: status
+                  type: ENUM('AVAILABLE', 'IN_PROGRESS', 'READY')
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: tft_match
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: match_id
+                  type: VARCHAR(16)
+                  constraints:
+                    uniqueConstraintName: UK_tft_match__match_id
+                    nullable: false
+                    unique: true
+              - column:
+                  name: status
+                  type: ENUM('AVAILABLE', 'IN_PROGRESS', 'READY')
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: lol_participant
+            columns:
+              - column:
+                  name: match_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: FK_lol_participant__lol_match__match_id
+                    referencedTableName: lol_match
+                    referencedColumnNames: id
+              - column:
+                  name: puuid
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    foreignKeyName: FK_lol_participant__account__puuid
+                    referencedTableName: account
+                    referencedColumnNames: puuid
+        - createTable:
+            tableName: lor_participant
+            columns:
+              - column:
+                  name: match_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: FK_lor_participant__lor_match__match_id
+                    referencedTableName: lor_match
+                    referencedColumnNames: id
+              - column:
+                  name: puuid
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    foreignKeyName: FK_lor_participant__account__puuid
+                    referencedTableName: account
+                    referencedColumnNames: puuid
+        - createTable:
+            tableName: tft_participant
+            columns:
+              - column:
+                  name: match_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: FK_tft_participant__tft_match__match_id
+                    referencedTableName: tft_match
+                    referencedColumnNames: id
+              - column:
+                  name: puuid
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    foreignKeyName: FK_tft_participant__account__puuid
+                    referencedTableName: account
+                    referencedColumnNames: puuid

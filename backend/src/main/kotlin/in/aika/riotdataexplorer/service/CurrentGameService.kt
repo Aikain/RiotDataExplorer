@@ -16,6 +16,7 @@ class CurrentGameService(
     private val lolApiClient: LolApiClient,
     private val tftApiClient: TftApiClient,
     private val dataDragonService: DataDragonService,
+    private val matchService: MatchService,
     @Lazy private val accountService: AccountService,
 ) {
 
@@ -24,9 +25,11 @@ class CurrentGameService(
         account.summoner?.let {
             try {
                 return currentGameToLolGame(lolApiClient.spectatorActiveGameByPuuid(it.platform, account.puuid))
+                    .also(matchService::create)
             } catch (ignored: NotFound) {}
             try {
                 return currentGameToTftGame(tftApiClient.spectatorActiveGameByPuuid(it.platform.toTftPlatform(), account.puuid))
+                    .also(matchService::create)
             } catch (ignored: NotFound) {}
         }
         return null

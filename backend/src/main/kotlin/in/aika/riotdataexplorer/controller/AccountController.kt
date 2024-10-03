@@ -3,6 +3,7 @@ package `in`.aika.riotdataexplorer.controller
 import com.fasterxml.jackson.annotation.JsonView
 import `in`.aika.riotdataexplorer.domain.Views
 import `in`.aika.riotdataexplorer.domain.current.CurrentGame
+import `in`.aika.riotdataexplorer.domain.match.Match
 import `in`.aika.riotdataexplorer.service.AccountService
 import `in`.aika.riotdataexplorer.service.DataDragonService
 import org.springframework.data.domain.Pageable
@@ -13,8 +14,8 @@ import org.springframework.web.server.ResponseStatusException
 @RequestMapping("/account")
 @RestController
 class AccountController(
-    val accountService: AccountService,
-    val dataDragonService: DataDragonService,
+    private val accountService: AccountService,
+    private val dataDragonService: DataDragonService,
 ) {
 
     @JsonView(Views.AccountList::class)
@@ -26,6 +27,12 @@ class AccountController(
     @GetMapping("{gameName}/{tagLine}")
     fun get(@PathVariable("gameName") gameName: String, @PathVariable("tagLine") tagLine: String) =
         dataDragonService.fillStaticData(accountService.getAccount(gameName, tagLine))
+
+    @JsonView(Views.MatchList::class)
+    @GetMapping("{gameName}/{tagLine}/matches")
+    fun matches(
+        @PathVariable("gameName") gameName: String, @PathVariable("tagLine") tagLine: String
+    ): List<Match<*>> = listOf() // TODO
 
     @JsonView(Views.CurrentGameGet::class)
     @GetMapping("{gameName}/{tagLine}/now")
