@@ -15,11 +15,11 @@ import jakarta.persistence.*
     JsonSubTypes.Type(value = TftParticipant::class, name = "TftParticipant"),
 )
 @MappedSuperclass
-sealed class Participant<M : Match<*>>(
+sealed class Participant(
     @ManyToOne(cascade = [CascadeType.DETACH])
     @MapsId("matchId")
     @JoinColumn(name = "match_id")
-    val match: M,
+    val match: Match<*>,
 
     @ManyToOne(cascade = [CascadeType.DETACH])
     @MapsId("puuid")

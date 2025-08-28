@@ -4,6 +4,7 @@ import `in`.aika.riotdataexplorer.api.Utils
 import `in`.aika.riotdataexplorer.api.routing.LorRegion
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
+import java.util.*
 
 @Component
 class LorApiClient(
@@ -20,7 +21,7 @@ class LorApiClient(
     fun matchesByPuuid(lorRegion: LorRegion, puuid: String) =
         lorRegionApis.getValue(lorRegion).matchesByPuuid(puuid)
 
-    fun matchByMatchId(lorRegion: LorRegion, matchId: String) =
+    fun matchByMatchId(lorRegion: LorRegion, matchId: UUID) =
         lorRegionApis.getValue(lorRegion).matchByMatchId(matchId)
 
     // LorRankedApi

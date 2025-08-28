@@ -7,4 +7,4 @@ import jakarta.persistence.Entity
 class LolParticipant(
     match: LolMatch,
     account: Account,
-) : Participant<LolMatch>(match, account)
+) : Participant(match, account)

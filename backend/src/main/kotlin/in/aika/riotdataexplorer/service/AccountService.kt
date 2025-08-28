@@ -4,6 +4,7 @@ import `in`.aika.riotdataexplorer.api.client.riot.RiotApiClient
 import `in`.aika.riotdataexplorer.api.model.riot.ActiveShard
 import `in`.aika.riotdataexplorer.api.model.riot.Game
 import `in`.aika.riotdataexplorer.domain.Account
+import `in`.aika.riotdataexplorer.domain.match.Match
 import `in`.aika.riotdataexplorer.repository.AccountRepository
 import org.springframework.context.annotation.Lazy
 import org.springframework.data.domain.Page
@@ -19,6 +20,7 @@ class AccountService(
     private val accountRepository: AccountRepository,
     private val summonerService: SummonerService,
     @Lazy private val currentGameService: CurrentGameService,
+    @Lazy private val matchService: MatchService,
 ) {
 
     fun findByQ(q: String?, pageable: Pageable): Page<Account> = q
@@ -61,6 +63,9 @@ class AccountService(
         } catch (ignored: NotFound) {}
         return null
     }
+
+    fun getMatches(gameName: String, tagLine: String, pageable: Pageable): Page<Match<*>> =
+        matchService.getMatches(getAccount(gameName, tagLine), pageable)
 
     fun getCurrentGame(gameName: String, tagLine: String) =
         currentGameService.getCurrentGame(getAccount(gameName, tagLine))

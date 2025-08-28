@@ -7,4 +7,4 @@ import jakarta.persistence.Entity
 class TftParticipant(
     match: TftMatch,
     account: Account,
-) : Participant<TftMatch>(match, account)
+) : Participant(match, account)

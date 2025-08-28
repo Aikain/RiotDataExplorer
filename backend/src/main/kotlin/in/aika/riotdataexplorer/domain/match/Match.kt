@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo
 import jakarta.persistence.Entity
 import jakarta.persistence.Inheritance
 import jakarta.persistence.InheritanceType
+import jakarta.persistence.OneToMany
 import org.springframework.data.jpa.domain.AbstractPersistable
 import java.util.*
 
@@ -19,7 +20,7 @@ import java.util.*
 )
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-abstract class Match<P> : AbstractPersistable<UUID>() {
+abstract class Match<P : Participant> : AbstractPersistable<UUID>() {
 
     abstract val status: MatchStatus
     abstract val participants: MutableSet<P>

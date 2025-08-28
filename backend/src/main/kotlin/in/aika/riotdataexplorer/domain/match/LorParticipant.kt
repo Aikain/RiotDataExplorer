@@ -8,4 +8,4 @@ import java.util.*
 class LorParticipant(
     match: LorMatch,
     account: Account,
-) : Participant<LorMatch>(match, account)
+) : Participant(match, account)
